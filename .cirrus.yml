@@ -18,17 +18,27 @@ task:
 
   # Cache configuration
   ccache_cache:
-    folder: /tmp/ccache
-    fingerprint_script: cat .cirrus.yml > /dev/null
+    folder: /cirrus/ccache
+    fingerprint_script:
+      - echo "v1"
+    populate_script:
+      - mkdir -p /cirrus/ccache
 
   setup_script:
-    - mkdir -p /tmp/ccache
-    - ccache -M 2G
     - apt-get update
-    - apt-get install -y aria2 ccache libssl-dev ncurses-dev flex bison cpio xz-utils locales libtinfo5
+    - apt-get install -y sudo curl wget git jq figlet aria2 python3-all-dev apt-utils
+    - apt-get install -y libtinfo6 libncurses6 libncurses-dev libncurses5-dev lsb-release lsb-base ccache
     - echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && /usr/sbin/locale-gen
     - ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
-    - apt-get clean
+    - mkdir -p /cirrus/ccache
+    - ccache -M 20G
+    - ccache -o compression=true
+    - ccache -o compression_level=6
+    - apt-get update
+
+  build_environment_script:
+    - git clone https://github.com/akhilnarang/scripts.git -b master .sc
+    - sudo bash .sc/setup/android_build_env.sh
 
   sync_script:
     - ./sync.sh
