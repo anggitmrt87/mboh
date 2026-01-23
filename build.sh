@@ -1,5 +1,5 @@
 #sync rom
-repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-23.1 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 git clone https://github.com/MRT-project/local_manifest --depth 1 -b main .repo/local_manifests
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
@@ -13,10 +13,10 @@ export KBUILD_BUILD_USER=admin
 export KBUILD_BUILD_HOST=mrtproject
 export BUILD_USERNAME=admin
 export BUILD_HOSTNAME=mrtproject
-lunch lineage_chime-bp2a-userdebug
+lunch lineage_chime-userdebug
 build_message "Building... 🛠️"
 mkfifo -m 644 reading
-tee -a ${BUILDLOG} < reading & progress & m bacon -j$(nproc --all) CCACHE=1 > reading
+tee -a ${BUILDLOG} < reading & progress & m vendorimage -j$(nproc --all) CCACHE=1 > reading
 
 retVal=$?
 timeEnd
