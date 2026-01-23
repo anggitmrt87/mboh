@@ -16,7 +16,7 @@ export BUILD_HOSTNAME=mrtproject
 lunch lineage_chime-bp2a-userdebug
 build_message "Building... 🛠️"
 mkfifo -m 644 reading
-tee -a ${BUILDLOG} < reading & progress & mka adbd vendorimage -j$(nproc --all) CCACHE=1 > reading
+tee -a ${BUILDLOG} < reading & progress & m bacon -j$(nproc --all) CCACHE=1 > reading
 
 retVal=$?
 timeEnd
