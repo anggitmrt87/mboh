@@ -13,7 +13,7 @@ export KBUILD_BUILD_USER=admin
 export KBUILD_BUILD_HOST=mrtproject
 export BUILD_USERNAME=admin
 export BUILD_HOSTNAME=mrtproject
-lunch lineage_chime-userdebug
+lunch infinity_chime-userdebug
 build_message "Building... 🛠️"
 mkfifo -m 644 reading
 tee -a ${BUILDLOG} < reading & progress & m vendorimage -j$(nproc --all) CCACHE=1 > reading
