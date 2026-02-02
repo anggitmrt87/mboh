@@ -10,9 +10,9 @@ grep _maple_dsds $CIRRUS_WORKING_DIR/build.sh > /dev/null && device=maple_dsds
 command=$(tail $CIRRUS_WORKING_DIR/build.sh -n +$(expr $(grep '# build rom' $CIRRUS_WORKING_DIR/build.sh -n | cut -f1 -d:) - 1)| head -n -1 | grep -v '# end')
 cd $CIRRUS_WORKING_DIR/rom/$name_rom
 export ALLOW_MISSING_DEPENDENCIES=true
-export PATH="/usr/lib/ccache:$PATH"
-export CCACHE_EXEC=$(which ccache)
-export USE_CCACHE=1
-which ccache
-ccache -z
+#export PATH="/usr/lib/ccache:$PATH"
+#export CCACHE_EXEC=$(which ccache)
+#export USE_CCACHE=1
+#which ccache
+#ccache -z
 bash -c "$command" || true
